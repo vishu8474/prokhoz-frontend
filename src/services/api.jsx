@@ -1,7 +1,8 @@
 // frontend/src/services/api.jsx
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:3000/api';
+// Use environment variable for Vite - CRITICAL FOR VERCEL
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 const api = axios.create({
     baseURL: API_BASE_URL,
@@ -40,10 +41,11 @@ export const authAPI = {
     login: (credentials) => api.post('/auth/login', credentials),
     getMe: () => api.get('/auth/me'),
 };
-// In frontend/src/services/api.jsx
+
 export const contactAPI = {
   sendMessage: (messageData) => api.post('/contact', messageData),
 };
+
 export const usersAPI = {
     getProfile: () => api.get('/users/profile'),
     updateProfile: (userData) => api.put('/users/profile', userData),
